@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FOLIOBLOX / CREATIVE DIRECTOR & SOFTWARE ENGINEER DESIGN SYSTEM
+   CHARUDATTA LENDE / COMPUTER SCIENCE ENGINEER DESIGN SYSTEM
    Modern Dark Editorial Portfolio with Smooth Hardware-Accelerated Animation
    ========================================================================== */
 
@@ -757,6 +757,69 @@ button {
 .trust-icon {
   color: var(--accent-primary);
   font-size: 1.1rem;
+}
+
+/* Tech Visual Groups (What I Build With) */
+.tech-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.tech-group-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all var(--transition-med);
+}
+
+.tech-group-card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-3px);
+  background: var(--bg-card-hover);
+}
+
+.tech-group-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.tech-group-tag {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+}
+
+.tech-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-chip-item {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-fast);
+}
+
+.tech-chip-item:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-medium);
 }
 
 /* Marquee ribbon */
@@ -2023,6 +2086,10 @@ button {
     margin: 0 auto;
   }
 
+  .tech-groups-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .featured-showcase-card {
     grid-template-columns: 1fr;
   }
@@ -2064,6 +2131,10 @@ button {
   }
 
   .hero-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-groups-grid {
     grid-template-columns: 1fr;
   }
 

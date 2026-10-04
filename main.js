@@ -1,11 +1,11 @@
 /**
  * ==========================================================================
- * FOLIOBLOX PORTFOLIO CORE JAVASCRIPT
+ * CHARUDATTA LENDE PORTFOLIO CORE JAVASCRIPT
  * - Preserves hardware-accelerated 240-frame canvas scroll animation
  * - Integrates Lenis smooth scrolling with anchor links
  * - Scroll-triggered section reveals via IntersectionObserver
  * - Active navigation spy & sticky header states
- * - Interactive UI utilities (Email copy, Mobile drawer)
+ * - Interactive UI utilities (Mobile drawer, navigation)
  * ==========================================================================
  */
 
@@ -332,7 +332,8 @@
 
   if (copyEmailBtn && copyStatusLabel) {
     copyEmailBtn.addEventListener('click', () => {
-      const emailText = document.querySelector('.email-text')?.textContent || 'contact@dominicwagner.dev';
+      const emailText = document.querySelector('.email-text')?.textContent || '';
+      if (!emailText) return;
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(emailText).then(onCopySuccess).catch(fallbackCopy);
