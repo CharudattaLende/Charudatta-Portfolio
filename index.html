@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dominic Wagner — Software Engineer & Systems Architect</title>
+  <meta name="description" content="Cinematic portfolio of Dominic Wagner, a software engineer and systems architect specializing in distributed systems, high-performance web applications, and cloud architecture.">
+  
+  <!-- Premium Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=20261004_04">
+  <style>
+    /* Critical fallback styles ensuring zero flicker & guaranteed content visibility */
+    :root {
+      --bg-deep: #030205;
+      --text-primary: #ffffff;
+      --text-secondary: #b5b2be;
+      --accent-primary: #ff5722;
+    }
+    html, body {
+      background-color: #030205;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #animation-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .canvas-ambient-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    .site-main {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+    .site-footer {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+    .reveal-on-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- ================= CANVAS BACKGROUND ANIMATION (PRESERVED) ================= -->
+  <canvas id="animation-canvas" aria-hidden="true"></canvas>
+
+  <!-- Atmospheric cinematic vignette & contrast overlay -->
+  <div class="canvas-ambient-overlay" aria-hidden="true"></div>
+
+  <!-- ================= SITE HEADER / NAVIGATION ================= -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a href="#hero" class="brand-logo" aria-label="Home">
+        <span class="logo-text">Folioblox</span><span class="logo-accent">✦</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#journey" class="nav-link">Journey</a></li>
+          <li><a href="#milestones" class="nav-link">Milestones</a></li>
+          <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact" class="btn btn-pill-primary">
+          <span>Get in touch</span>
+          <span class="btn-arrow-bubble" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- Mobile hamburger toggle -->
+        <button class="mobile-toggle-btn" id="mobile-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+      <ul class="mobile-nav-links">
+        <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+        <li><a href="#about" class="mobile-nav-link">About</a></li>
+        <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+        <li><a href="#journey" class="mobile-nav-link">Journey</a></li>
+        <li><a href="#milestones" class="mobile-nav-link">Milestones</a></li>
+        <li><a href="#pricing" class="mobile-nav-link">Pricing</a></li>
+        <li><a href="#contact" class="mobile-nav-link mobile-cta-link">Get in touch ➔</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT WRAPPER ================= -->
+  <main class="site-main" id="main-content">
+
+    <!-- ================= 1. CINEMATIC HERO SECTION ================= -->
+    <section class="section hero-section" id="hero">
+      <div class="container hero-container">
+        
+        <div class="hero-top-row">
+          <div class="hero-title-block">
+            <div class="hero-tag-wrap">
+              <span class="pill-badge pill-badge-subtle">
+                <span class="status-dot"></span>
+                <span>Hey, I'm a</span>
+              </span>
+            </div>
+            <h1 class="hero-title">
+              <span class="hero-title-line">Creative</span>
+              <span class="hero-title-line accent-gradient-text">Director</span>
+            </h1>
+          </div>
+
+          <div class="hero-side-block">
+            <p class="hero-lead-text">
+              Great software should feel invisible.
+            </p>
+            <p class="hero-body-text">
+              From resilient backend architectures to intuitive, high-performance interfaces, I engineer digital systems that connect, convert, and scale effortlessly.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-pill-primary">
+                <span>View Projects</span>
+                <span class="btn-arrow-bubble" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </a>
+              <a href="#contact" class="btn btn-pill-ghost">
+                <span>Contact Me</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Numbered Service / Architecture Pillars (from Reference Screen 1) -->
+        <div class="hero-pillars-grid">
+          <div class="pillar-card">
+            <span class="pillar-number">01</span>
+            <div class="pillar-content">
+              <h2 class="pillar-title">Distributed Systems</h2>
+              <p class="pillar-desc">Fault-tolerant microservices & streaming</p>
+            </div>
+          </div>
+
+          <div class="pillar-card">
+            <span class="pillar-number">02</span>
+            <div class="pillar-content">
+              <h2 class="pillar-title">Full-Stack Web</h2>
+              <p class="pillar-desc">Type-safe, accessible reactive interfaces</p>
+            </div>
+          </div>
+
+          <div class="pillar-card">
+            <span class="pillar-number">03</span>
+            <div class="pillar-content">
+              <h2 class="pillar-title">Cloud & DevOps</h2>
+              <p class="pillar-desc">Kubernetes, Docker & CI/CD automation</p>
+            </div>
+          </div>
+
+          <div class="pillar-card">
+            <span class="pillar-number">04</span>
+            <div class="pillar-content">
+              <h2 class="pillar-title">Real-Time & AI</h2>
+              <p class="pillar-desc">WebSockets, gRPC & ML pipelines</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 2. TRUST / SKILLS STRIP (from Reference Screen 1) ================= -->
+    <section class="section trust-section" id="trust">
+      <div class="container trust-container">
+        <div class="trust-heading-wrap">
+          <span class="trust-heading">Trusted by Brands & Engineering Teams I've Helped Shape</span>
+        </div>
+
+        <div class="trust-badges-grid">
+          <div class="trust-badge-item">
+            <span class="trust-icon">◉</span>
+            <span class="trust-name">Supa Blox</span>
+          </div>
+          <div class="trust-badge-item">
+            <span class="trust-icon">⧖</span>
+            <span class="trust-name">Hype Blox</span>
+          </div>
+          <div class="trust-badge-item">
+            <span class="trust-icon">⦿</span>
+            <span class="trust-name">Frame Blox</span>
+          </div>
+          <div class="trust-badge-item">
+            <span class="trust-icon">◐</span>
+            <span class="trust-name">Ultra Blox</span>
+          </div>
+        </div>
+
+        <!-- Tech stack marquee ribbon -->
+        <div class="tech-marquee-wrapper" aria-hidden="true">
+          <div class="tech-marquee-track">
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">React / Next.js</span>
+            <span class="tech-pill">Go (Golang)</span>
+            <span class="tech-pill">Rust</span>
+            <span class="tech-pill">PostgreSQL</span>
+            <span class="tech-pill">Docker & K8s</span>
+            <span class="tech-pill">AWS Cloud</span>
+            <span class="tech-pill">GraphQL & gRPC</span>
+            <span class="tech-pill">Tailwind CSS</span>
+            <span class="tech-pill">Three.js / WebGL</span>
+            <!-- duplicate for seamless loop -->
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">React / Next.js</span>
+            <span class="tech-pill">Go (Golang)</span>
+            <span class="tech-pill">Rust</span>
+            <span class="tech-pill">PostgreSQL</span>
+            <span class="tech-pill">Docker & K8s</span>
+            <span class="tech-pill">AWS Cloud</span>
+            <span class="tech-pill">GraphQL & gRPC</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. INTRO / SHAPING EXPERIENCES (from Reference Screen 4) ================= -->
+    <section class="section intro-section" id="intro">
+      <div class="container">
+        
+        <div class="editorial-split-header reveal-on-scroll">
+          <div class="split-col-left">
+            <span class="section-tag-accent">Behind the Designs</span>
+            <h2 class="editorial-headline">
+              Shaping Experiences That Make Life Simpler
+            </h2>
+          </div>
+
+          <div class="split-col-right">
+            <p class="editorial-lead-para">
+              I'm a software engineer and product designer focused on building clean, intuitive interfaces that solve real-world problems.
+            </p>
+            <div class="split-action-row">
+              <span class="subtext-mute">Let's Build Something Meaningful Together</span>
+              <a href="#contact" class="btn btn-pill-primary">
+                <span>Get in touch</span>
+                <span class="btn-arrow-bubble" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Feature Visual Cards (from Reference Screen 4) -->
+        <div class="tri-cards-grid reveal-on-scroll">
+          
+          <div class="feature-card">
+            <div class="card-media-wrap">
+              <img src="assets/card_jacket.jpg" alt="Minimalist outerwear form" class="card-img" loading="lazy">
+              <div class="card-overlay-gradient"></div>
+            </div>
+            <div class="card-meta-bar">
+              <span class="card-chip">Structural Form</span>
+              <h3 class="card-caption">Clean Architecture</h3>
+              <p class="card-snippet">Strict domain boundaries and high-cohesion modular services engineered for longevity.</p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-media-wrap">
+              <img src="assets/card_headphones.jpg" alt="Ergonomic audio interface" class="card-img" loading="lazy">
+              <div class="card-overlay-gradient"></div>
+            </div>
+            <div class="card-meta-bar">
+              <span class="card-chip">Sensory UI</span>
+              <h3 class="card-caption">Sub-16ms Latency</h3>
+              <p class="card-snippet">Fluid user interactions with optimized render lifecycles and zero-jank frame timing.</p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-media-wrap">
+              <img src="assets/card_bottle.jpg" alt="Minimalist dropper bottle formulation" class="card-img" loading="lazy">
+              <div class="card-overlay-gradient"></div>
+            </div>
+            <div class="card-meta-bar">
+              <span class="card-chip">System Purity</span>
+              <h3 class="card-caption">Observable Telemetry</h3>
+              <p class="card-snippet">End-to-end tracing and automated anomaly detection providing 99.999% reliability.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 4. BEHIND THE REPOSITORIES / SHOWCASE (from Reference Screen 2) ================= -->
+    <section class="section showcase-section" id="showcase">
+      <div class="container">
+        
+        <div class="center-editorial-header reveal-on-scroll">
+          <span class="section-tag-accent">Behind the Designs</span>
+          <h2 class="editorial-headline text-center">Curious What Else I've Created?</h2>
+          <p class="center-subtitle">
+            Explore more brand identities, packaging, and digital systems in my extended portfolio.
+          </p>
+          <div class="center-btn-row">
+            <a href="#projects" class="btn btn-pill-primary">
+              <span>See more Projects</span>
+              <span class="btn-arrow-bubble" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive Fan / Curved Gallery Cards -->
+        <div class="interactive-fan-wrapper reveal-on-scroll">
+          <div class="fan-track" id="fan-track">
+            
+            <div class="fan-card fan-card-1">
+              <div class="fan-card-art art-gradient-1">
+                <span class="fan-badge">01 · Identity</span>
+                <h4>SyncronMesh</h4>
+                <p>Peer-to-peer state syncing</p>
+              </div>
+            </div>
+
+            <div class="fan-card fan-card-2">
+              <div class="fan-card-art art-gradient-2">
+                <span class="fan-badge">02 · Systems</span>
+                <h4>AuraKV</h4>
+                <p>Raft-backed key-value store</p>
+              </div>
+            </div>
+
+            <div class="fan-card fan-card-3">
+              <div class="fan-card-art art-gradient-3">
+                <span class="fan-badge">03 · Tooling</span>
+                <h4>Nexus CLI</h4>
+                <p>Multi-cloud deploy scaffolding</p>
+              </div>
+            </div>
+
+            <div class="fan-card fan-card-4">
+              <div class="fan-card-art art-gradient-4">
+                <span class="fan-badge">04 · AI Engine</span>
+                <h4>PromptStream</h4>
+                <p>Dynamic token routing gateway</p>
+              </div>
+            </div>
+
+            <div class="fan-card fan-card-5">
+              <div class="fan-card-art art-gradient-5">
+                <span class="fan-badge">05 · UI Tokens</span>
+                <h4>Chroma UI</h4>
+                <p>Accessible design system</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 4 Process Pillars below (from Reference Screen 2) -->
+        <div class="process-pillars-row reveal-on-scroll">
+          <div class="process-col">
+            <span class="process-num">01</span>
+            <span class="process-title">Strategy & Planning</span>
+          </div>
+          <div class="process-col">
+            <span class="process-num">02</span>
+            <span class="process-title">Design & Development</span>
+          </div>
+          <div class="process-col">
+            <span class="process-num">03</span>
+            <span class="process-title">Launch & Growth</span>
+          </div>
+          <div class="process-col">
+            <span class="process-num">04</span>
+            <span class="process-title">Ongoing Support</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 5. FEATURED PROJECT (from Reference Screen 5) ================= -->
+    <section class="section featured-project-section" id="featured">
+      <div class="container">
+        
+        <div class="featured-top-header reveal-on-scroll">
+          <div class="featured-title-wrap">
+            <span class="section-tag-accent">Selected Work</span>
+            <h2 class="editorial-headline display-huge">Projects</h2>
+          </div>
+          <div class="featured-side-note">
+            <span class="note-label">Real brands, real results</span>
+            <p class="note-desc">
+              Take a closer look at how strategy and design come together to build systems that connect and endure.
+            </p>
+          </div>
+        </div>
+
+        <!-- Large featured project card with dynamic action visual -->
+        <div class="featured-showcase-card reveal-on-scroll">
+          <div class="featured-media-container">
+            <img src="assets/project_rider.jpg" alt="Apex Velocity Telemetry Platform" class="featured-main-img" loading="lazy">
+            <div class="featured-badge-overlay">
+              <span class="status-live-dot"></span>
+              <span>Featured System Case Study</span>
+            </div>
+          </div>
+
+          <div class="featured-details-pane">
+            <div class="featured-header-info">
+              <span class="featured-category">High-Throughput Telemetry Platform</span>
+              <h3 class="featured-system-title">Apex Velocity Engine</h3>
+              <p class="featured-system-summary">
+                A distributed real-time telemetry processing platform engineered for high-throughput sensor telemetry. Ingests and routes up to 250,000 events/sec with sub-5ms roundtrip latency across 12 distributed edge clusters.
+              </p>
+            </div>
+
+            <!-- Metrics bar -->
+            <div class="metrics-grid">
+              <div class="metric-item">
+                <span class="metric-val">250K+</span>
+                <span class="metric-lbl">Events / Sec</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val">&lt;4.2ms</span>
+                <span class="metric-lbl">P99 Latency</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val">99.999%</span>
+                <span class="metric-lbl">Uptime SLA</span>
+              </div>
+            </div>
+
+            <!-- Tech stack chips -->
+            <div class="tech-tags-list">
+              <span class="tech-tag">Rust</span>
+              <span class="tech-tag">Kafka</span>
+              <span class="tech-tag">WebSockets</span>
+              <span class="tech-tag">TimescaleDB</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Docker</span>
+            </div>
+
+            <!-- CTAs -->
+            <div class="featured-cta-row">
+              <a href="#contact" class="btn btn-pill-primary">
+                <span>Explore Live Case Study</span>
+                <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-pill-ghost">
+                <span>View GitHub Repository ↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 6. ASYMMETRIC PROJECT GRID (from Reference Screen 9 & 5) ================= -->
+    <section class="section projects-grid-section" id="projects">
+      <div class="container">
+        
+        <div class="editorial-split-header reveal-on-scroll">
+          <div class="split-col-left">
+            <span class="section-tag-accent">Selected Work</span>
+            <h2 class="editorial-headline">
+              Bringing Brands to Life Through Design
+            </h2>
+          </div>
+          <div class="split-col-right">
+            <p class="editorial-lead-para">
+              A curated collection of visual identities, systems architecture, and creative engineering built for tangible impact.
+            </p>
+            <div class="split-action-row">
+              <span class="subtext-mute">Let's Build Something Meaningful Together</span>
+              <a href="#contact" class="btn btn-pill-primary">
+                <span>Get in touch</span>
+                <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asymmetric 2-Column Project Grid -->
+        <div class="asymmetric-grid reveal-on-scroll">
+          
+          <!-- Project 1: Orange Blox (from Screen 9) -->
+          <article class="project-tile project-tile-tall">
+            <div class="tile-image-frame">
+              <img src="assets/project_orange.jpg" alt="Orange Blox visual analytics engine" class="tile-img" loading="lazy">
+              <div class="tile-gradient-overlay"></div>
+            </div>
+            <div class="tile-content-block">
+              <div class="tile-header">
+                <span class="tile-tag">Visual Identity & 3D Analytics</span>
+                <h3 class="tile-title">Orange Blox</h3>
+              </div>
+              <p class="tile-desc">
+                Flowing shapes in iridescent hues, from deep blues and purples to vibrant pinks and oranges, creating an ethereal real-time brand telemetry interface.
+              </p>
+              <div class="tile-tech-pills">
+                <span>TypeScript</span>
+                <span>WebGL</span>
+                <span>Go</span>
+                <span>PostgreSQL</span>
+              </div>
+              <div class="tile-action">
+                <a href="#contact" class="btn btn-pill-outline">
+                  <span>See project</span>
+                  <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Nova Scene (from Screen 9) -->
+          <article class="project-tile project-tile-tall">
+            <div class="tile-image-frame">
+              <img src="assets/project_nova.jpg" alt="Nova Scene fragrance packaging and 3D visualizer" class="tile-img" loading="lazy">
+              <div class="tile-gradient-overlay"></div>
+            </div>
+            <div class="tile-content-block">
+              <div class="tile-header">
+                <span class="tile-tag">Packaging & Spatial 3D Pipeline</span>
+                <h3 class="tile-title">Nova Scene</h3>
+              </div>
+              <p class="tile-desc">
+                Luxury architectural fragrance rendering with warm prism reflections, sculptural glass silhouettes, and sub-second WebAssembly compilation.
+              </p>
+              <div class="tile-tech-pills">
+                <span>Three.js</span>
+                <span>Rust (WASM)</span>
+                <span>Next.js</span>
+                <span>Tailwind</span>
+              </div>
+              <div class="tile-action">
+                <a href="#contact" class="btn btn-pill-outline">
+                  <span>See project</span>
+                  <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3: Krypton Protocol -->
+          <article class="project-tile project-tile-wide">
+            <div class="tile-image-frame">
+              <img src="assets/card_jacket.jpg" alt="Krypton Zero-Trust Protocol" class="tile-img" loading="lazy">
+              <div class="tile-gradient-overlay"></div>
+            </div>
+            <div class="tile-content-block">
+              <div class="tile-header">
+                <span class="tile-tag">Security & Microservices</span>
+                <h3 class="tile-title">Krypton Auth Core</h3>
+              </div>
+              <p class="tile-desc">
+                Decentralized cryptographic zero-trust auth gateway featuring biometric passkeys, instant token revocation, and multi-tenant audit streams.
+              </p>
+              <div class="tile-tech-pills">
+                <span>Go</span>
+                <span>gRPC</span>
+                <span>Redis</span>
+                <span>Kubernetes</span>
+              </div>
+              <div class="tile-action">
+                <a href="#contact" class="btn btn-pill-outline">
+                  <span>See project</span>
+                  <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4: HyperFlow Cloud Orchestrator -->
+          <article class="project-tile project-tile-wide">
+            <div class="tile-image-frame">
+              <img src="assets/card_bottle.jpg" alt="HyperFlow Orchestrator" class="tile-img" loading="lazy">
+              <div class="tile-gradient-overlay"></div>
+            </div>
+            <div class="tile-content-block">
+              <div class="tile-header">
+                <span class="tile-tag">Cloud Infrastructure</span>
+                <h3 class="tile-title">HyperFlow Engine</h3>
+              </div>
+              <p class="tile-desc">
+                DAG-based job scheduler executing parallel machine learning pipelines with dynamic resource provisioning across AWS and Google Cloud.
+              </p>
+              <div class="tile-tech-pills">
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>Terraform</span>
+                <span>AWS Lambda</span>
+              </div>
+              <div class="tile-action">
+                <a href="#contact" class="btn btn-pill-outline">
+                  <span>See project</span>
+                  <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 7. ABOUT ME (from Reference Screen 3 & Screen 7) ================= -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        
+        <div class="about-editorial-grid reveal-on-scroll">
+          
+          <!-- Left Column: Editorial Bio and Skills -->
+          <div class="about-text-column">
+            <span class="section-tag-accent">About me</span>
+            <h2 class="editorial-headline display-large">
+              Designer.<br>
+              Strategist.<br>
+              <span class="accent-gradient-text">Creative partner.</span>
+            </h2>
+            
+            <p class="about-sub-headline">
+              Blending clarity and creativity to build systems with purpose.
+            </p>
+
+            <div class="about-bio-body">
+              <p>
+                I'm Dominic Wagner, a freelance software engineer and systems designer with 10 years of experience helping startups, creatives, and growing businesses build identities and architectures that feel like them.
+              </p>
+              <p>
+                With a background spanning distributed systems, cloud architecture, and modern frontend development, I bring a balance of strategy and technical precision to every project. Whether it's your first MVP or a full architectural refresh, I'm here to guide you every step of the way.
+              </p>
+            </div>
+
+            <!-- Read more CTA button (from Screen 3) -->
+            <div class="about-cta-row">
+              <a href="#journey" class="btn btn-pill-primary">
+                <span>Read more</span>
+                <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+              </a>
+              <a href="#contact" class="btn btn-pill-ghost">
+                <span>Download Resume 📄</span>
+              </a>
+            </div>
+
+            <!-- Categorized Skills Grid -->
+            <div class="skills-block-section">
+              <h3 class="skills-category-heading">Technical Competencies</h3>
+              <div class="skills-matrix">
+                <div class="skill-group">
+                  <span class="skill-group-title">Frontend</span>
+                  <p class="skill-group-items">React, Next.js, TypeScript, WebGL, Tailwind CSS, Accessibility</p>
+                </div>
+                <div class="skill-group">
+                  <span class="skill-group-title">Backend</span>
+                  <p class="skill-group-items">Node.js, Go (Golang), Python, Rust, GraphQL, gRPC, REST</p>
+                </div>
+                <div class="skill-group">
+                  <span class="skill-group-title">Cloud & DevOps</span>
+                  <p class="skill-group-items">Docker, Kubernetes, AWS, Terraform, CI/CD Pipelines, Prometheus</p>
+                </div>
+                <div class="skill-group">
+                  <span class="skill-group-title">Databases</span>
+                  <p class="skill-group-items">PostgreSQL, Redis, TimescaleDB, MongoDB, Kafka Event Streams</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Visual Persona & Stats Card -->
+          <div class="about-visual-column">
+            <div class="about-feature-box">
+              <div class="about-banner-badge">
+                <span class="status-live-dot"></span>
+                <span>The Person Behind the Work</span>
+              </div>
+              <h3 class="about-card-title">Design rooted in strategy, driven by purpose.</h3>
+              <p class="about-card-desc">
+                Committed to writing high-craft code with clean mental models, deterministic state, and responsive human interfaces.
+              </p>
+
+              <!-- Stats Cards Grid -->
+              <div class="about-stats-grid">
+                <div class="stat-card">
+                  <span class="stat-big-num">10+</span>
+                  <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-big-num">60+</span>
+                  <span class="stat-label">Brands Launched</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-big-num">99.9%</span>
+                  <span class="stat-label">Uptime Delivered</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-big-num">15</span>
+                  <span class="stat-label">Industry Awards</span>
+                </div>
+              </div>
+
+              <!-- Education chip -->
+              <div class="education-badge-card">
+                <span class="edu-icon">🎓</span>
+                <div class="edu-info">
+                  <span class="edu-degree">B.S. in Computer Science & Engineering</span>
+                  <span class="edu-school">State University of Technology · Graduated with Honors</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 8. EXPERIENCE / JOURNEY ================= -->
+    <section class="section journey-section" id="journey">
+      <div class="container">
+        
+        <div class="editorial-split-header reveal-on-scroll">
+          <div class="split-col-left">
+            <span class="section-tag-accent">Career Timeline</span>
+            <h2 class="editorial-headline">
+              Work Experience & Journey
+            </h2>
+          </div>
+          <div class="split-col-right">
+            <p class="editorial-lead-para">
+              A decade of engineering leadership, scaling high-impact systems, and shipping production applications.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Cards Container -->
+        <div class="journey-timeline reveal-on-scroll">
+          
+          <!-- Experience 1 -->
+          <div class="journey-entry">
+            <div class="journey-indicator">
+              <div class="journey-node"></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-header">
+                <div>
+                  <h3 class="journey-role">Lead Software Architect</h3>
+                  <span class="journey-company">CloudScale Technologies · San Francisco, CA</span>
+                </div>
+                <span class="journey-period">2023 — Present</span>
+              </div>
+              <p class="journey-desc">
+                Spearheaded the architecture of high-availability microservices serving 4.5M monthly active users. Reduced infrastructure costs by 38% through container orchestration.
+              </p>
+              <ul class="journey-highlights">
+                <li>Migrated legacy monolithic services to 14 fault-tolerant Go microservices</li>
+                <li>Engineered real-time notification engine with 99.999% delivery reliability</li>
+                <li>Mentored a team of 8 full-stack engineers and established architectural RFC reviews</li>
+              </ul>
+              <div class="journey-tags">
+                <span>Go</span>
+                <span>Kubernetes</span>
+                <span>Kafka</span>
+                <span>AWS</span>
+                <span>PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience 2 -->
+          <div class="journey-entry">
+            <div class="journey-indicator">
+              <div class="journey-node"></div>
+              <div class="journey-line"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-header">
+                <div>
+                  <h3 class="journey-role">Senior Full-Stack Engineer</h3>
+                  <span class="journey-company">Nexus Digital Studio · New York, NY</span>
+                </div>
+                <span class="journey-period">2020 — 2023</span>
+              </div>
+              <p class="journey-desc">
+                Built scalable web applications and developer tools for venture-backed fintech startups. Led design system implementation across 6 product suites.
+              </p>
+              <ul class="journey-highlights">
+                <li>Created headless design system in TypeScript, decreasing UI sprint times by 50%</li>
+                <li>Implemented end-to-end zero-trust authentication using WebAuthn biometric passkeys</li>
+                <li>Optimized client-side bundle size resulting in 72% faster LCP benchmarks</li>
+              </ul>
+              <div class="journey-tags">
+                <span>TypeScript</span>
+                <span>Next.js</span>
+                <span>Node.js</span>
+                <span>Redis</span>
+                <span>GraphQL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience 3 -->
+          <div class="journey-entry">
+            <div class="journey-indicator">
+              <div class="journey-node"></div>
+            </div>
+            <div class="journey-card">
+              <div class="journey-card-header">
+                <div>
+                  <h3 class="journey-role">Software Engineer</h3>
+                  <span class="journey-company">Apex Informatics · Austin, TX</span>
+                </div>
+                <span class="journey-period">2017 — 2020</span>
+              </div>
+              <p class="journey-desc">
+                Developed real-time data ingestion pipelines and responsive dashboards. Automated testing suites achieving 94% code coverage.
+              </p>
+              <ul class="journey-highlights">
+                <li>Architected distributed telemetry data ingestion worker in Python and Celery</li>
+                <li>Refactored relational database indexing, reducing slow query frequencies by 80%</li>
+                <li>Contributed to company-wide continuous integration deployment pipelines</li>
+              </ul>
+              <div class="journey-tags">
+                <span>Python</span>
+                <span>React</span>
+                <span>Docker</span>
+                <span>PostgreSQL</span>
+                <span>GitLab CI</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 9. ACHIEVEMENTS & RECOGNITION (from Reference Screen 8) ================= -->
+    <section class="section achievements-section" id="milestones">
+      <div class="container">
+        
+        <div class="editorial-split-header reveal-on-scroll">
+          <div class="split-col-left">
+            <span class="section-tag-accent">Awards & Recognition</span>
+            <h2 class="editorial-headline">
+              Proud Moments, Shared Success
+            </h2>
+          </div>
+          <div class="split-col-right">
+            <p class="editorial-lead-para">
+              A few highlights from industry juries and design communities who've recognized the work.
+            </p>
+          </div>
+        </div>
+
+        <!-- Awards list table / cards -->
+        <div class="awards-list-wrapper reveal-on-scroll">
+          
+          <div class="award-item-row">
+            <div class="award-left">
+              <span class="award-org-badge">Awwwards</span>
+              <h3 class="award-title">Site of the Day</h3>
+              <p class="award-desc">Recognized for innovation and visual storytelling in the rebranding of a creative agency.</p>
+            </div>
+            <div class="award-right">
+              <span class="award-year">2024</span>
+              <span class="award-arrow">↗</span>
+            </div>
+          </div>
+
+          <div class="award-item-row">
+            <div class="award-left">
+              <span class="award-org-badge">Indigo Trophy</span>
+              <h3 class="award-title">Indigo Design Award</h3>
+              <p class="award-desc">Gold Trophy winner for digital design excellence, accessibility, and high-performance interactive interfaces.</p>
+            </div>
+            <div class="award-right">
+              <span class="award-year">2024</span>
+              <span class="award-arrow">↗</span>
+            </div>
+          </div>
+
+          <div class="award-item-row">
+            <div class="award-left">
+              <span class="award-org-badge">Amazon Web Services</span>
+              <h3 class="award-title">AWS Certified Solutions Architect</h3>
+              <p class="award-desc">Professional certification validating expertise in designing distributed, resilient cloud architectures.</p>
+            </div>
+            <div class="award-right">
+              <span class="award-year">2023</span>
+              <span class="award-arrow">↗</span>
+            </div>
+          </div>
+
+          <div class="award-item-row">
+            <div class="award-left">
+              <span class="award-org-badge">Dev Community</span>
+              <h3 class="award-title">Open Source Contributor of the Year</h3>
+              <p class="award-desc">Honored for active maintainership of widely adopted open-source TypeScript and WebGL utility packages.</p>
+            </div>
+            <div class="award-right">
+              <span class="award-year">2022</span>
+              <span class="award-arrow">↗</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 10. PRICING PACKAGES (from Reference Screen 6) ================= -->
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        
+        <div class="center-editorial-header reveal-on-scroll">
+          <span class="section-tag-accent">Pricing</span>
+          <h2 class="editorial-headline text-center">Simple Packages for Every Stage</h2>
+          <p class="center-subtitle">
+            Clear, flexible packages built to fit your brand's stage.
+          </p>
+        </div>
+
+        <!-- 3 Pricing Cards: Starter, Pro Plan (Vibrant Orange), Enterprise -->
+        <div class="pricing-cards-grid reveal-on-scroll">
+          
+          <!-- 1. Starter Tier -->
+          <div class="pricing-card">
+            <div class="pricing-header">
+              <span class="tier-name">Starter</span>
+              <div class="pricing-cost">
+                <span class="price-val">$1990</span>
+                <span class="price-period">/ month</span>
+              </div>
+              <p class="tier-subtext">Perfect for early-stage startups.</p>
+            </div>
+
+            <div class="pricing-divider"></div>
+
+            <ul class="pricing-features-list">
+              <li><span class="check-icon">✓</span> Core MVP Architecture</li>
+              <li><span class="check-icon">✓</span> Frontend Web App (Next.js)</li>
+              <li><span class="check-icon">✓</span> RESTful API & Database Setup</li>
+              <li><span class="check-icon">✓</span> Basic CI/CD Pipeline</li>
+              <li><span class="check-icon">✓</span> Bi-weekly Sprint Syncs</li>
+            </ul>
+
+            <div class="pricing-cta-wrap">
+              <a href="#contact" class="btn btn-pill-dark">
+                <span>Get in touch</span>
+                <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. Pro Plan Tier (Vibrant Orange Card exactly like Reference Screen 6!) -->
+          <div class="pricing-card pricing-card-featured">
+            <div class="pricing-header">
+              <div class="tier-top-row">
+                <span class="tier-name">Pro plan</span>
+                <span class="popular-pill">Popular</span>
+              </div>
+              <div class="pricing-cost">
+                <span class="price-val">$2990</span>
+                <span class="price-period">/ month</span>
+              </div>
+              <p class="tier-subtext">Ideal for businesses ready to scale.</p>
+            </div>
+
+            <div class="pricing-divider divider-featured"></div>
+
+            <ul class="pricing-features-list features-featured">
+              <li><span class="check-icon">✓</span> Full-Stack Production System</li>
+              <li><span class="check-icon">✓</span> Microservices & Event Streaming</li>
+              <li><span class="check-icon">✓</span> Comprehensive Design System</li>
+              <li><span class="check-icon">✓</span> Cloud Infrastructure (AWS / K8s)</li>
+              <li><span class="check-icon">✓</span> Performance Optimization & SLAs</li>
+              <li><span class="check-icon">✓</span> Dedicated 24/7 Slack Channel</li>
+            </ul>
+
+            <div class="pricing-cta-wrap">
+              <a href="#contact" class="btn btn-pill-white">
+                <span>Get in touch</span>
+                <span class="btn-arrow-bubble-orange" aria-hidden="true">➔</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 3. Enterprise Tier -->
+          <div class="pricing-card">
+            <div class="pricing-header">
+              <span class="tier-name">Enterprise plan</span>
+              <div class="pricing-cost">
+                <span class="price-val">$4990</span>
+                <span class="price-period">/ month</span>
+              </div>
+              <p class="tier-subtext">Complete branding & tech solution.</p>
+            </div>
+
+            <div class="pricing-divider"></div>
+
+            <ul class="pricing-features-list">
+              <li><span class="check-icon">✓</span> Fractional CTO Leadership</li>
+              <li><span class="check-icon">✓</span> Custom Distributed Architecture</li>
+              <li><span class="check-icon">✓</span> Zero-Trust Security & Audit</li>
+              <li><span class="check-icon">✓</span> High-Throughput WebSockets</li>
+              <li><span class="check-icon">✓</span> Multi-Region Disaster Recovery</li>
+              <li><span class="check-icon">✓</span> Daily Engineering Sprints</li>
+            </ul>
+
+            <div class="pricing-cta-wrap">
+              <a href="#contact" class="btn btn-pill-dark">
+                <span>Get in touch</span>
+                <span class="btn-arrow-bubble" aria-hidden="true">➔</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 11. CONTACT / GET IN TOUCH ================= -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        
+        <div class="contact-card-box reveal-on-scroll">
+          <div class="contact-glow-orb" aria-hidden="true"></div>
+          
+          <div class="contact-inner-content">
+            <span class="pill-badge pill-badge-subtle">
+              <span class="status-dot"></span>
+              <span>Available for New Projects</span>
+            </span>
+
+            <h2 class="contact-main-heading">
+              Let's Build Something Meaningful Together.
+            </h2>
+            
+            <p class="contact-subtext">
+              Have an ambitious technical project, need full-stack architecture, or want to explore contract collaboration? Let's talk.
+            </p>
+
+            <!-- Quick copy email row -->
+            <div class="email-copy-wrapper">
+              <button class="email-copy-pill" id="copy-email-btn" title="Click to copy email address">
+                <span class="email-text">contact@dominicwagner.dev</span>
+                <span class="copy-action-label" id="copy-status">Copy Email</span>
+              </button>
+            </div>
+
+            <!-- Socials row -->
+            <div class="contact-socials-row">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-chip">
+                <span>GitHub ↗</span>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-chip">
+                <span>LinkedIn ↗</span>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-chip">
+                <span>Twitter / X ↗</span>
+              </a>
+              <a href="#" class="social-chip">
+                <span>Download Resume 📄</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= 12. FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-top-row">
+        <a href="#hero" class="brand-logo footer-logo">
+          <span class="logo-text">Folioblox</span><span class="logo-accent">✦</span>
+        </a>
+        <ul class="footer-nav">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#journey">Journey</a></li>
+          <li><a href="#milestones">Milestones</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom-row">
+        <p class="copyright-text">
+          © 2026 Dominic Wagner. Built with clean code & hardware-accelerated animations.
+        </p>
+        <a href="#hero" class="back-to-top" aria-label="Back to Top">
+          <span>Back to Top</span>
+          <span>↑</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="lenis.min.js"></script>
+  <script src="portfolio-data.js?v=20261004_04"></script>
+  <script src="main.js?v=20261004_04"></script>
+</body>
+</html>
