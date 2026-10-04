@@ -142,14 +142,111 @@
     lastDrawnIndex = index;
   }
 
-  // Compute scroll progress (0.0 to 1.0)
+  // ==========================================================================
+  // CONFIGURABLE SCROLL-TO-FRAME RESPONSIVENESS MULTIPLIERS
+  // Desktop: ~1.75x frame progression per unit scroll
+  // Mobile: ~1.5x frame progression per unit scroll
+  // ==========================================================================
+  const SCROLL_FRAME_MULTIPLIER_DESKTOP = 1.75;
+  const SCROLL_FRAME_MULTIPLIER_MOBILE = 1.5;
+
+  function getScrollFrameMultiplier() {
+    return window.innerWidth <= 768 ? SCROLL_FRAME_MULTIPLIER_MOBILE : SCROLL_FRAME_MULTIPLIER_DESKTOP;
+  }
+
+  // Compute scroll progress (0.0 to 1.0) with enhanced responsiveness
   function updateScrollProgress() {
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    targetProgress = maxScroll > 0 ? Math.max(0, Math.min(1, window.scrollY / maxScroll)) : 0;
+    if (maxScroll <= 0) {
+      targetProgress = 0;
+      return;
+    }
+    const multiplier = getScrollFrameMultiplier();
+    const rawProgress = (window.scrollY / maxScroll) * multiplier;
+    targetProgress = Math.max(0, Math.min(1, rawProgress));
+  }
+
+  // Expose configuration for runtime inspection
+  if (typeof window !== 'undefined') {
+    window.SCROLL_FRAME_CONFIG = {
+      desktopMultiplier: SCROLL_FRAME_MULTIPLIER_DESKTOP,
+      mobileMultiplier: SCROLL_FRAME_MULTIPLIER_MOBILE,
+      getMultiplier: getScrollFrameMultiplier
+    };
   }
 
   /* ========================================================================
-     2. LENIS SMOOTH SCROLL INTEGRATION
+     2. DOM ELEMENTS & UI STATE HANDLERS
+     ======================================================================== */
+  const siteHeader = document.getElementById('site-header');
+  const heroSection = document.getElementById('hero');
+  const navLinks = document.querySelectorAll('.desktop-nav .nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  const mobileToggleBtn = document.getElementById('mobile-toggle');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+
+  function handleHeaderScrollState() {
+    if (!siteHeader) return;
+    if (window.scrollY > 40) {
+      siteHeader.classList.add('is-scrolled');
+    } else {
+      siteHeader.classList.remove('is-scrolled');
+    }
+  }
+
+  function handleBackgroundPortraitOpacity() {
+    if (!heroSection) return;
+    const heroThreshold = heroSection.offsetTop + heroSection.offsetHeight * 0.65;
+    if (window.scrollY > heroThreshold) {
+      document.body.classList.add('is-past-hero');
+    } else {
+      document.body.classList.remove('is-past-hero');
+    }
+  }
+
+  function updateActiveNavLinks() {
+    const scrollPos = window.scrollY + 180;
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute('id');
+
+      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+        navLinks.forEach((link) => {
+          if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }
+
+  function toggleMobileDrawer() {
+    if (!mobileToggleBtn || !mobileDrawer) return;
+    const isOpen = mobileDrawer.classList.contains('is-open');
+    if (isOpen) {
+      closeMobileDrawer();
+    } else {
+      mobileDrawer.classList.add('is-open');
+      mobileToggleBtn.classList.add('is-active');
+      mobileToggleBtn.setAttribute('aria-expanded', 'true');
+      mobileDrawer.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  function closeMobileDrawer() {
+    if (!mobileToggleBtn || !mobileDrawer) return;
+    mobileDrawer.classList.remove('is-open');
+    mobileToggleBtn.classList.remove('is-active');
+    mobileToggleBtn.setAttribute('aria-expanded', 'false');
+    mobileDrawer.setAttribute('aria-hidden', 'true');
+  }
+
+  /* ========================================================================
+     3. LENIS SMOOTH SCROLL INTEGRATION
      ======================================================================== */
   let lenis = null;
   if (typeof Lenis !== 'undefined') {
@@ -168,12 +265,14 @@
       updateScrollProgress();
       handleHeaderScrollState();
       updateActiveNavLinks();
+      handleBackgroundPortraitOpacity();
     });
   } else {
     window.addEventListener('scroll', () => {
       updateScrollProgress();
       handleHeaderScrollState();
       updateActiveNavLinks();
+      handleBackgroundPortraitOpacity();
     }, { passive: true });
   }
 
@@ -200,7 +299,7 @@
   });
 
   /* ========================================================================
-     3. RENDER LOOP WITH MOMENTUM LERP (PRESERVED)
+     4. RENDER LOOP WITH MOMENTUM LERP (PRESERVED)
      ======================================================================== */
   function animate(time) {
     if (lenis) {
@@ -229,43 +328,8 @@
   window.addEventListener('resize', resizeCanvas);
   updateScrollProgress();
   resizeCanvas();
+  handleBackgroundPortraitOpacity();
   requestAnimationFrame(animate);
-
-  /* ========================================================================
-     4. HEADER SCROLL STATE & ACTIVE NAVIGATION SPY
-     ======================================================================== */
-  const siteHeader = document.getElementById('site-header');
-  function handleHeaderScrollState() {
-    if (!siteHeader) return;
-    if (window.scrollY > 40) {
-      siteHeader.classList.add('is-scrolled');
-    } else {
-      siteHeader.classList.remove('is-scrolled');
-    }
-  }
-
-  const navLinks = document.querySelectorAll('.desktop-nav .nav-link');
-  const sections = document.querySelectorAll('section[id]');
-
-  function updateActiveNavLinks() {
-    const scrollPos = window.scrollY + 180;
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-
-      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-        navLinks.forEach((link) => {
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
-      }
-    });
-  }
 
   /* ========================================================================
      5. SCROLL REVEAL VIA INTERSECTION OBSERVER
@@ -294,35 +358,29 @@
   }
 
   /* ========================================================================
-     6. MOBILE NAVIGATION DRAWER
+     6. MOBILE NAVIGATION DRAWER LISTENERS
      ======================================================================== */
-  const mobileToggleBtn = document.getElementById('mobile-toggle');
-  const mobileDrawer = document.getElementById('mobile-drawer');
-
-  function toggleMobileDrawer() {
-    if (!mobileToggleBtn || !mobileDrawer) return;
-    const isOpen = mobileDrawer.classList.contains('is-open');
-    if (isOpen) {
-      closeMobileDrawer();
-    } else {
-      mobileDrawer.classList.add('is-open');
-      mobileToggleBtn.classList.add('is-active');
-      mobileToggleBtn.setAttribute('aria-expanded', 'true');
-      mobileDrawer.setAttribute('aria-hidden', 'false');
-    }
-  }
-
-  function closeMobileDrawer() {
-    if (!mobileToggleBtn || !mobileDrawer) return;
-    mobileDrawer.classList.remove('is-open');
-    mobileToggleBtn.classList.remove('is-active');
-    mobileToggleBtn.setAttribute('aria-expanded', 'false');
-    mobileDrawer.setAttribute('aria-hidden', 'true');
-  }
-
   if (mobileToggleBtn) {
     mobileToggleBtn.addEventListener('click', toggleMobileDrawer);
   }
+
+  // Close mobile drawer on Escape key or tap outside
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMobileDrawer();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (
+      mobileDrawer &&
+      mobileDrawer.classList.contains('is-open') &&
+      !mobileDrawer.contains(e.target) &&
+      !mobileToggleBtn.contains(e.target)
+    ) {
+      closeMobileDrawer();
+    }
+  });
 
   /* ========================================================================
      7. ONE-CLICK EMAIL COPY WITH TOOLTIP FEEDBACK

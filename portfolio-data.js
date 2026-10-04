@@ -15,6 +15,7 @@ const PORTFOLIO_DATA = {
     availability: "Open to Collaborations & Projects",
     location: "YCCE, Nagpur, India",
     socials: {
+      email: "charudatta.lende.dev@gmail.com",
       github: "https://github.com/CharudattaLende",
       linkedin: "https://www.linkedin.com/in/charudatta-lende-812009326",
       x: "https://x.com/Charudatta59"
@@ -72,49 +73,19 @@ const PORTFOLIO_DATA = {
     ]
   },
 
-  introPreview: {
-    tag: "Behind the Developer",
-    headline: "Building, learning, and improving through real projects.",
-    description: "I'm a Computer Science and Engineering student focused on building full-stack applications and strengthening my software development fundamentals. I enjoy turning ideas into working products and I'm currently expanding my focus toward backend systems and data engineering.",
-    subText: "Open to Collaborations & Projects",
-    cards: [
-      {
-        id: "card-1",
-        image: "assets/card_jacket.jpg",
-        tag: "Core Focus",
-        title: "Full-Stack Web",
-        desc: "Building clean, responsive web applications using React, Node.js, Express, and MongoDB."
-      },
-      {
-        id: "card-2",
-        image: "assets/card_headphones.jpg",
-        tag: "Engineering",
-        title: "Backend & APIs",
-        desc: "Structuring RESTful APIs, handling user authentication, and managing database integration."
-      },
-      {
-        id: "card-3",
-        image: "assets/card_bottle.jpg",
-        tag: "Exploration",
-        title: "Data Systems",
-        desc: "Actively studying data processing, pipeline architectures, and cloud-native services."
-      }
-    ]
-  },
-
   featuredProject: {
     tag: "Featured Project",
     headline: "Chat App",
     category: "Full-Stack / Real-Time Application",
-    status: "Completed",
     description: "A real-time messaging application built with React and Firebase, enabling users to communicate through a responsive web interface.",
-    image: "assets/project_rider.jpg",
+    image: "assets/project_chat_app.jpg",
     tags: ["React.js", "Firebase", "Real-Time Sync", "Responsive Web"],
     highlights: [
-      { label: "Status", value: "Completed" },
-      { label: "Type", value: "Real-Time Chat" },
+      { label: "Deployment", value: "Vercel Live" },
+      { label: "Architecture", value: "Real-Time Chat" },
       { label: "Stack", value: "React + Firebase" }
     ],
+    liveUrl: "https://chat-app-topaz-theta.vercel.app/Chat",
     githubUrl: "https://github.com/CharudattaLende/chat-app"
   },
 
@@ -125,7 +96,7 @@ const PORTFOLIO_DATA = {
       tag: "AI-Powered E-Commerce Platform",
       status: "In Development",
       description: "A full-stack e-commerce platform currently being developed with a focus on modern web architecture, backend APIs, authentication and data-driven features.",
-      image: "assets/project_orange.jpg",
+      image: "assets/project_shopsphere.jpg",
       tags: ["MERN Stack", "React", "Node.js", "Express", "MongoDB"],
       github: "",
       link: ""
@@ -136,7 +107,7 @@ const PORTFOLIO_DATA = {
       tag: "Full-Stack / Systems Exploration",
       status: "In Ideation",
       description: "Planned application exploring scalable backend services, custom API integrations, and robust database management.",
-      image: "assets/project_nova.jpg",
+      image: "assets/project_upcoming.jpg",
       tags: ["Planned: Node.js", "Express", "Databases"],
       github: "",
       link: ""
@@ -223,6 +194,7 @@ const PORTFOLIO_DATA = {
     subheadline: "I'm always open to interesting projects, collaborations, hackathons and opportunities to learn and build.",
     ctaBadge: "Open to Collaborations",
     socials: {
+      email: "charudatta.lende.dev@gmail.com",
       github: "https://github.com/CharudattaLende",
       linkedin: "https://www.linkedin.com/in/charudatta-lende-812009326",
       x: "https://x.com/Charudatta59"
