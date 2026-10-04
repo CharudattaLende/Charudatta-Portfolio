@@ -113,6 +113,7 @@
   }
 
   // Draw frame with aspect-ratio preserving cover and sub-pixel snapping
+  // Seamless dual-mode framing: Laptop widescreen cover vs Mobile portrait focal framing
   function drawFrame(index) {
     const frameData = getBestAvailableFrame(index);
     if (!frameData) return;
@@ -123,11 +124,28 @@
     const iw = img.naturalWidth || 1280;
     const ih = img.naturalHeight || 720;
 
-    const scale = Math.max(displayWidth / iw, displayHeight / ih);
-    const dw = iw * scale;
-    const dh = ih * scale;
-    const rawDx = (displayWidth - dw) / 2;
-    const rawDy = (displayHeight - dh) / 2;
+    const isPortraitMobile = displayWidth <= 768 || (displayWidth / displayHeight < 0.92);
+
+    let scale, dw, dh, rawDx, rawDy;
+
+    if (!isPortraitMobile) {
+      // Desktop & Laptop widescreen framing: cinematic cover with subtle head bias
+      scale = Math.max(displayWidth / iw, displayHeight / ih);
+      dw = iw * scale;
+      dh = ih * scale;
+      rawDx = (displayWidth - dw) / 2;
+      rawDy = Math.min(0, (displayHeight - dh) * 0.22);
+    } else {
+      // Mobile portrait framing: scales to show full upper body, shoulders, and ambient lights
+      // exactly like on laptop instead of an extreme close-up nose/forehead crop
+      const targetDw = Math.min(Math.max(displayWidth * 1.35, 480), 720);
+      scale = targetDw / iw;
+      dw = iw * scale;
+      dh = ih * scale;
+      rawDx = (displayWidth - dw) / 2;
+      // Position subject comfortably in the upper hero zone
+      rawDy = Math.max(25, Math.min(115, Math.round(displayHeight * 0.12)));
+    }
 
     const dx = Math.round(rawDx * dpr) / dpr;
     const dy = Math.round(rawDy * dpr) / dpr;
@@ -137,8 +155,30 @@
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
-    ctx.clearRect(0, 0, displayWidth, displayHeight);
+    // Clear whole canvas to theme background color #030205
+    ctx.fillStyle = '#030205';
+    ctx.fillRect(0, 0, displayWidth, displayHeight);
+
+    // Draw the portrait image
     ctx.drawImage(img, 0, 0, iw, ih, dx, dy, targetDw, targetDh);
+
+    // On mobile portrait, apply feathering so edges dissolve invisibly into the dark background
+    if (isPortraitMobile) {
+      // Soft top dissolve
+      const topGrad = ctx.createLinearGradient(0, dy, 0, dy + 50);
+      topGrad.addColorStop(0, '#030205');
+      topGrad.addColorStop(1, 'rgba(3, 2, 5, 0)');
+      ctx.fillStyle = topGrad;
+      ctx.fillRect(0, dy - 2, displayWidth, 54);
+
+      // Soft bottom dissolve
+      const bottomGrad = ctx.createLinearGradient(0, dy + targetDh - 80, 0, dy + targetDh + 2);
+      bottomGrad.addColorStop(0, 'rgba(3, 2, 5, 0)');
+      bottomGrad.addColorStop(1, '#030205');
+      ctx.fillStyle = bottomGrad;
+      ctx.fillRect(0, dy + targetDh - 80, displayWidth, 85);
+    }
+
     lastDrawnIndex = index;
   }
 
@@ -181,9 +221,12 @@
   const siteHeader = document.getElementById('site-header');
   const heroSection = document.getElementById('hero');
   const navLinks = document.querySelectorAll('.desktop-nav .nav-link');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  const mobileBottomTabs = document.querySelectorAll('.mobile-bottom-tab');
   const sections = document.querySelectorAll('section[id]');
   const mobileToggleBtn = document.getElementById('mobile-toggle');
   const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileDrawerBackdrop = document.getElementById('mobile-drawer-backdrop');
 
   function handleHeaderScrollState() {
     if (!siteHeader) return;
@@ -214,11 +257,13 @@
 
       if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
         navLinks.forEach((link) => {
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
+          link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
+        });
+        mobileNavLinks.forEach((link) => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
+        });
+        mobileBottomTabs.forEach((tab) => {
+          tab.classList.toggle('active', tab.getAttribute('href') === `#${sectionId}`);
         });
       }
     });
@@ -231,6 +276,7 @@
       closeMobileDrawer();
     } else {
       mobileDrawer.classList.add('is-open');
+      if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.add('is-open');
       mobileToggleBtn.classList.add('is-active');
       mobileToggleBtn.setAttribute('aria-expanded', 'true');
       mobileDrawer.setAttribute('aria-hidden', 'false');
@@ -240,6 +286,7 @@
   function closeMobileDrawer() {
     if (!mobileToggleBtn || !mobileDrawer) return;
     mobileDrawer.classList.remove('is-open');
+    if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.remove('is-open');
     mobileToggleBtn.classList.remove('is-active');
     mobileToggleBtn.setAttribute('aria-expanded', 'false');
     mobileDrawer.setAttribute('aria-hidden', 'true');
@@ -428,6 +475,11 @@
     });
   }
 
+  // Backdrop click closes mobile drawer
+  if (mobileDrawerBackdrop) {
+    mobileDrawerBackdrop.addEventListener('click', closeMobileDrawer);
+  }
+
   /* ========================================================================
      8. OPTIONAL DATA HYDRATION / VERIFICATION
      ======================================================================== */
@@ -437,5 +489,49 @@
       console.log(`Portfolio section [${sectionKey}] updated:`, newData);
     };
   }
+
+  /* ========================================================================
+     9. PROGRESSIVE WEB APP (PWA) REGISTRATION & INSTALLATION
+     ======================================================================== */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((registration) => {
+          console.log('Portfolio PWA Service Worker registered:', registration.scope);
+        })
+        .catch((error) => {
+          console.warn('Portfolio PWA Service Worker failed:', error);
+        });
+    });
+  }
+
+  let deferredInstallPrompt = null;
+  const pwaInstallButtons = document.querySelectorAll('.pwa-install-trigger');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    pwaInstallButtons.forEach((btn) => {
+      btn.style.display = 'inline-flex';
+    });
+  });
+
+  pwaInstallButtons.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      const { outcome } = await deferredInstallPrompt.userChoice;
+      console.log('User install prompt outcome:', outcome);
+      if (outcome === 'accepted') {
+        pwaInstallButtons.forEach((b) => (b.style.display = 'none'));
+      }
+      deferredInstallPrompt = null;
+    });
+  });
+
+  window.addEventListener('appinstalled', () => {
+    pwaInstallButtons.forEach((b) => (b.style.display = 'none'));
+    console.log('Charudatta Portfolio PWA successfully installed!');
+  });
 
 })();
