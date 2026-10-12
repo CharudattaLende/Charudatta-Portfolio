@@ -307,6 +307,7 @@
       touchMultiplier: 1.5,
       infinite: false,
     });
+    window.lenis = lenis;
 
     lenis.on('scroll', () => {
       updateScrollProgress();

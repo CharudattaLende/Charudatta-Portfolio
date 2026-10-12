@@ -3,14 +3,17 @@
  * Enables Progressive Web App (PWA) installability, instant loading, and offline caching
  */
 
-const CACHE_NAME = 'charudatta-portfolio-v1.0';
+const CACHE_NAME = 'charudatta-portfolio-v1.1';
 
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/style.css',
+  '/chat-widget.css',
   '/main.js',
+  '/chat-widget.js',
   '/portfolio-data.js',
+  '/portfolio-data.json',
   '/lenis.min.js',
   '/manifest.webmanifest',
   '/assets/icon.svg',

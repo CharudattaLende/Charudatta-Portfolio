@@ -1,0 +1,15 @@
+{
+  "name": "charudatta-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio website for Charudatta Lende with VerbiTech AI Assistant integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "sync-data": "node scripts/sync-data.js",
+    "test:backend": "pytest backend/tests"
+  },
+  "keywords": ["portfolio", "verbitech", "transformer", "fastapi"],
+  "author": "Charudatta Lende",
+  "license": "MIT"
+}
