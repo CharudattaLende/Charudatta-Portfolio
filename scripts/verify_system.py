@@ -47,13 +47,13 @@ def run_tests():
         print("[OK] sw.js updated with cache v1.1 and precaching all new assets")
 
     print("\n=== 2. VERIFYING BACKEND API ON PORT 8000 ===")
-    with httpx.Client(base_url="http://127.0.0.1:8000") as client:
+    with httpx.Client(base_url="http://127.0.0.1:8000", timeout=30.0) as client:
         r = client.get("/api/health")
         assert r.status_code == 200
         health = r.json()
         assert health["status"] == "ok"
         assert health["facts_loaded"] is True
-        print(f"[OK] Backend health OK (Projects count: {health['projects_count']})")
+        print(f"[OK] Backend health OK (Projects count: {health['projects_count']}, Model Status: {health.get('model_status')})")
 
         queries = [
             ("show projects", ["key projects"], "#projects", ["Chat App", "ShopSphere"]),
@@ -70,8 +70,12 @@ def run_tests():
             r = client.post("/api/chat", json={"message": q})
             assert r.status_code == 200, f"Query '{q}' failed"
             resp = r.json()
-            for sub in expected_substrings:
-                assert sub.lower() in resp["reply"].lower(), f"Expected '{sub}' in reply for '{q}'"
+            if resp.get("generation_source") == "verbitech_model":
+                assert resp.get("reply") and len(resp["reply"].strip()) > 0, "Model generated empty text"
+                assert resp.get("model_status") == "connected", "Expected connected status on live model response"
+            else:
+                for sub in expected_substrings:
+                    assert sub.lower() in resp["reply"].lower(), f"Expected '{sub}' in reply for '{q}'"
             if expected_action_target:
                 targets = [a["target"] for a in resp["actions"]]
                 assert expected_action_target in targets, f"Expected target '{expected_action_target}' in actions for '{q}'"

@@ -17,6 +17,19 @@ BACKEND_DIR = Path(__file__).resolve().parent.parent
 REPO_ROOT = BACKEND_DIR.parent
 DEFAULT_LOCAL_DATA_FILE = REPO_ROOT / "portfolio-data.json"
 
+# Native .env loader (zero-dependency, loads .env if present in root or backend/)
+for env_file in [REPO_ROOT / ".env", BACKEND_DIR / ".env"]:
+    if env_file.exists():
+        with open(env_file, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, val = line.split("=", 1)
+                    key = key.strip()
+                    val = val.strip().strip("'\"")
+                    if key and key not in os.environ:
+                        os.environ[key] = val
+
 # Portfolio Data Configuration
 PORTFOLIO_DATA_URL: str = os.getenv(
     "PORTFOLIO_DATA_URL",
@@ -38,3 +51,5 @@ VERBITECH_API_URL: str = os.getenv(
     "VERBITECH_API_URL",
     os.getenv("VERBITECH_INFERENCE_URL", "")
 ).strip()
+VERBITECH_MAX_TOKENS: int = int(os.getenv("VERBITECH_MAX_TOKENS", "50"))
+

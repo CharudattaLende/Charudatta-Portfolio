@@ -83,24 +83,39 @@ The system is deliberately decoupled into three independent components that do N
 
 ## How to Connect Your Real Colab Model to This Backend
 
-When your Colab session is running the VerbiTech FastAPI inference server:
-1. Expose the Colab FastAPI port (e.g., using `ngrok`, `localtunnel`, or `cloudflared`):
+The backend expects the exact VerbiTech Colab inference contract:
+- **Endpoint**: `POST /generate`
+- **Request**: `{"prompt": "...", "max_tokens": 100}`
+- **Response**: `{"text": "...", "tokens_generated": ..., "latency_ms": ..., "tokens_per_sec": ..., "finish_reason": "..."}`
+
+### Step-by-Step Connection Instructions:
+
+1. In your Colab notebook, expose the running FastAPI inference server (e.g. using `ngrok` or `localtunnel`):
    ```python
-   # Example Colab cell:
    from pyngrok import ngrok
-   public_url = ngrok.connect(8000).public_url
-   print(f"VerbiTech Model URL: {public_url}/inference")
+   tunnel = ngrok.connect(8000)
+   print(f"VerbiTech Colab Endpoint: {tunnel.public_url}/generate")
    ```
-2. Set the environment variable on this backend:
+
+2. Set the environment variable on the assistant backend:
    ```bash
-   VERBITECH_API_URL=https://your-ngrok-tunnel.ngrok-free.app/inference
+   # Both base URL and full /generate URL are supported:
+   VERBITECH_API_URL=https://your-colab-tunnel.ngrok-free.app
+   # Or:
+   VERBITECH_API_URL=https://your-colab-tunnel.ngrok-free.app/generate
    ```
-3. Restart or redeploy the assistant backend. The health endpoint (`/api/health`) will immediately report:
-   ```json
-   {
-     "status": "ok",
-     "model_status": "connected",
-     "model_endpoint_configured": true,
-     "model_checkpoint_info": "Step 2000 (External Colab/Drive)"
-   }
-   ```
+
+3. `model_status` behavior:
+   - Before inference or if Colab is offline, `model_status` reports `"pending"` and serves grounded portfolio facts.
+   - Upon the first successful call to `/generate` returning 200 with generated text, `model_status` transitions to `"connected"`.
+   - The health endpoint (`GET /api/health`) will report:
+     ```json
+     {
+       "status": "ok",
+       "facts_loaded": true,
+       "projects_count": 3,
+       "model_status": "connected",
+       "model_endpoint_configured": true,
+       "model_checkpoint_info": "Step 2000 (External Colab/Drive)"
+     }
+     ```
