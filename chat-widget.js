@@ -6,8 +6,9 @@
 (function () {
   'use strict';
 
-  // API endpoint configuration (can be overridden via window.VERBITECH_API_URL)
-  const API_ENDPOINT = window.VERBITECH_API_URL || 'http://localhost:8000/api/chat';
+  // API endpoint configuration (supports both window.VERBITECH_BACKEND_URL and window.VERBITECH_API_URL)
+  const API_ENDPOINT = window.VERBITECH_API_URL || 
+    (window.VERBITECH_BACKEND_URL ? `${window.VERBITECH_BACKEND_URL.replace(/\/+$/, '')}/api/chat` : 'http://localhost:8000/api/chat');
 
   // Allowlisted section targets
   const SAFE_NAV_TARGETS = new Set([

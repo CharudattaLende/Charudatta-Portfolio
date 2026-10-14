@@ -52,4 +52,5 @@ VERBITECH_API_URL: str = os.getenv(
     os.getenv("VERBITECH_INFERENCE_URL", "")
 ).strip()
 VERBITECH_MAX_TOKENS: int = int(os.getenv("VERBITECH_MAX_TOKENS", "50"))
+VERBITECH_API_KEY: str = os.getenv("VERBITECH_API_KEY", "").strip()
 

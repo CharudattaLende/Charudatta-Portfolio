@@ -205,3 +205,47 @@ def test_external_model_inference_failure_reverts_to_pending(monkeypatch):
 def test_chat_empty_validation():
     response = client.post("/api/chat", json={"message": ""})
     assert response.status_code in (400, 422)
+
+
+def test_external_model_auth_header_sent(monkeypatch):
+    """Verifies that X-VerbiTech-Key is transmitted when VERBITECH_API_KEY is configured."""
+    recorded_headers = []
+
+    class MockResponse:
+        status_code = 200
+        def json(self):
+            return {
+                "text": "Response from authenticated model endpoint.",
+                "tokens_generated": 20,
+                "latency_ms": 50.0,
+                "tokens_per_sec": 40.0,
+                "finish_reason": "length"
+            }
+
+    class MockClient:
+        def __init__(self, *args, **kwargs):
+            pass
+        def __enter__(self):
+            return self
+        def __exit__(self, *args):
+            pass
+        def post(self, url, json=None, headers=None, **kwargs):
+            recorded_headers.append(headers or {})
+            return MockResponse()
+
+    import httpx
+    monkeypatch.setattr(httpx, "Client", MockClient)
+    monkeypatch.setattr("backend.app.model.VERBITECH_API_KEY", "test_secret_key_123")
+
+    inference_engine._is_connected = False
+    orig_url = inference_engine.endpoint_url
+    try:
+        inference_engine.endpoint_url = "https://mock-hf-space.hf.space"
+        response = client.post("/api/chat", json={"message": "Analyze system performance"})
+        assert response.status_code == 200
+        assert len(recorded_headers) == 1
+        assert recorded_headers[0].get("X-VerbiTech-Key") == "test_secret_key_123"
+        assert response.json()["generation_source"] == "verbitech_model"
+    finally:
+        inference_engine.endpoint_url = orig_url
+        inference_engine._is_connected = False

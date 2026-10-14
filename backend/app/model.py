@@ -16,7 +16,7 @@ import logging
 from typing import Optional, Tuple
 import httpx
 
-from .config import VERBITECH_API_URL, VERBITECH_MAX_TOKENS
+from .config import VERBITECH_API_URL, VERBITECH_MAX_TOKENS, VERBITECH_API_KEY
 from .facts import FactService, fact_service
 
 logger = logging.getLogger(__name__)
@@ -94,6 +94,8 @@ class VerbiTechInferenceClient:
                     "ngrok-skip-browser-warning": "true",
                     "User-Agent": "VerbiTech-Assistant-Backend/1.0"
                 }
+                if VERBITECH_API_KEY:
+                    headers["X-VerbiTech-Key"] = VERBITECH_API_KEY
                 with httpx.Client(timeout=15.0) as client:
                     resp = client.post(target_url, json=payload, headers=headers)
                     if resp.status_code == 200:
